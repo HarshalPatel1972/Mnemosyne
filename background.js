@@ -7,11 +7,17 @@ async function ensureOffscreenDocument() {
 
     if (existingContexts.length > 0) return;
 
-    await chrome.offscreen.createDocument({
-        url: 'offscreen/offscreen.html',
-        reasons: ['BLOBS'], // Using BLOBS as a generic reason for heavy computation
-        justification: 'Running AI embeddings in background'
-    });
+    try {
+        await chrome.offscreen.createDocument({
+            url: 'offscreen/offscreen.html',
+            reasons: ['BLOBS'], // Using BLOBS as a generic reason for heavy computation
+            justification: 'Running AI embeddings in background'
+        });
+    } catch (err) {
+        if (!err.message.includes('Only a single offscreen')) {
+            throw err;
+        }
+    }
 }
 
 // 2. Listen for harvested text from Content Script

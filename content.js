@@ -24,6 +24,16 @@ function harvest() {
     const h1 = document.querySelector('h1')?.innerText || "";
     const bodyText = document.body.innerText.substring(0, 500).replace(/\s+/g, ' ').trim();
 
+    // Scrape Favicon
+    let favicon = "";
+    const iconLink = document.querySelector('link[rel*="icon"]');
+    if (iconLink) {
+        favicon = iconLink.href;
+    } else {
+        // Fallback to default
+        favicon = window.location.origin + "/favicon.ico";
+    }
+
     // Construct "Semantic Text"
     // Combine robustly
     const fullText = `Title: ${title}. Description: ${metaDesc}. Header: ${h1}. Content: ${bodyText}`;
@@ -33,7 +43,8 @@ function harvest() {
         payload: {
             url: window.location.href,
             title: title,
-            text: fullText
+            text: fullText,
+            favicon: favicon
         }
     });
 

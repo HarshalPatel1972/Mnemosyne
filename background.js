@@ -32,7 +32,7 @@ import { Database } from './lib/db.js';
 const db = new Database();
 
 async function handleHarvest(payload) {
-    const { url, title, text } = payload;
+    const { url, title, text, favicon } = payload;
     
     try {
         await ensureOffscreenDocument();
@@ -49,7 +49,7 @@ async function handleHarvest(payload) {
             console.log(`[Mnemosyne] Vector received for ${title}. Saving to DB...`);
             
             // 4. Save to IndexedDB
-            await db.add(url, title, text, vector);
+            await db.add(url, title, text, vector, favicon);
             console.log(`[Mnemosyne] Saved!`);
         } else {
             console.error('[Mnemosyne] Embedding failed', response);

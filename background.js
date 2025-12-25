@@ -59,3 +59,21 @@ async function handleHarvest(payload) {
         console.error('[Mnemosyne] Orchestration Error:', err);
     }
 }
+
+// 5. Context Menu Setup
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        id: "mnemosyne-search",
+        title: "Search Mnemosyne for '%s'",
+        contexts: ["selection"]
+    });
+});
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "mnemosyne-search") {
+        const query = encodeURIComponent(info.selectionText);
+        chrome.tabs.create({
+            url: `dashboard/dashboard.html?query=${query}`
+        });
+    }
+});

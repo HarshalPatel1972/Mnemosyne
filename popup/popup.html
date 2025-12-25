@@ -17,6 +17,13 @@
 
     <div id="search-container">
         <input type="text" id="query" placeholder="Search by concept..." autocomplete="off" />
+        <select id="time-filter"
+            style="width: auto; padding: 0 8px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.3); color: #94a3b8; outline:none; height:42px;">
+            <option value="all">All</option>
+            <option value="24h">24h</option>
+            <option value="7d">7d</option>
+            <option value="30d">30d</option>
+        </select>
         <button id="search-btn">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
                 <circle cx="11" cy="11" r="8"></circle>

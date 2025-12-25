@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Mnemosyne Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 1 0 10 10 10 10 0 0 0-10-10zm0 16a6 6 0 1 1 6-6 6 6 0 0 1-6 6z" />
+                    <path d="M12 8v4l3 3" />
+                </svg>
+                Mnemosyne Dashboard
+            </h1>
+        </header>
+
+        <div class="search-section">
+            <div class="input-group">
+                <input type="text" id="query" placeholder="Recall a concept..." autocomplete="off">
+                <select id="time-filter">
+                    <option value="all">All Time</option>
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                </select>
+                <button id="search-btn">Access Memory</button>
+            </div>
+        </div>
+
+        <div id="stats" class="stats-panel">
+            <!-- Stats e.g. "Stored Memories: 142" -->
+        </div>
+
+        <div id="results" class="results-grid">
+            <!-- Cards go here -->
+            <div class="placeholder">
+                <p>Select a text on any webpage -> Right Click -> "Search Mnemosyne"</p>
+                <p>Or perform a deep search above.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Need database and offscreen access logic -->
+    <script type="module" src="dashboard.js"></script>
+</body>
+
+</html>

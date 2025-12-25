@@ -8,7 +8,8 @@
     "storage",
     "tabs",
     "scripting",
-    "history"
+    "history",
+    "contextMenus"
   ],
   "host_permissions": [
     "<all_urls>"

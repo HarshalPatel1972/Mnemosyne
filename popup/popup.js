@@ -46,6 +46,8 @@ async function getEmbedding(text) {
     });
 }
 
+const timeFilterInput = document.getElementById('time-filter');
+
 searchBtn.addEventListener('click', async () => {
     const query = queryInput.value.trim();
     if (!query) return;
@@ -57,7 +59,8 @@ searchBtn.addEventListener('click', async () => {
         const queryVector = await getEmbedding(query);
 
         // 2. Search DB (Hybrid: Vector + Keyword)
-        const results = await db.search(queryVector, query);
+        const timeFilter = timeFilterInput.value;
+        const results = await db.search(queryVector, query, 10, timeFilter);
 
         // 3. Render
         resultsDiv.innerHTML = '';

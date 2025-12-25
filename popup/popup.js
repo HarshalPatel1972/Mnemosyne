@@ -50,7 +50,7 @@ searchBtn.addEventListener('click', async () => {
     const query = queryInput.value.trim();
     if (!query) return;
 
-    resultsDiv.innerHTML = '<div style="color:#888;">Thinking...</div>';
+    resultsDiv.innerHTML = '<div class="loading">Consulting the neural matrix...</div>';
 
     try {
         // 1. Embed the query
@@ -62,19 +62,26 @@ searchBtn.addEventListener('click', async () => {
         // 3. Render
         resultsDiv.innerHTML = '';
         if (results.length === 0) {
-            resultsDiv.innerHTML = '<div style="padding:10px;">No memories found.</div>';
+            resultsDiv.innerHTML = '<div class="loading" style="animation:none">No memories matching that concept found.</div>';
             return;
         }
 
-        results.forEach(item => {
-            const div = document.createElement('div');
+        results.forEach((item, index) => {
+            const div = document.createElement('a');
             div.className = 'result-item';
+            div.href = item.url;
+            div.target = "_blank";
+            div.style.animationDelay = `${index * 0.05}s`; // Staggered animation
+
             const scorePct = Math.round(item.score * 100);
+            
             div.innerHTML = `
-                <a href="${item.url}" target="_blank" class="result-title">${item.title}</a>
+                <div class="result-header">
+                    <span class="result-title">${item.title}</span>
+                    <span class="score-badge">${scorePct}%</span>
+                </div>
                 <div class="result-meta">
-                    <span class="score">${scorePct}% Match</span>
-                    ${new Date(item.timestamp).toLocaleDateString()}
+                    <span>${new Date(item.timestamp).toLocaleDateString()}</span>
                 </div>
             `;
             resultsDiv.appendChild(div);
@@ -82,6 +89,6 @@ searchBtn.addEventListener('click', async () => {
 
     } catch (err) {
         console.error(err);
-        resultsDiv.innerHTML = `<div style="color:red;">Error: ${err.message}</div>`;
+        resultsDiv.innerHTML = `<div style="color:#ef4444; padding:10px;">Error: ${err.message}</div>`;
     }
 });

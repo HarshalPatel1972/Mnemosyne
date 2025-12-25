@@ -66,13 +66,19 @@ input {
 }
 
 select {
-    background: rgba(0,0,0,0.3);
+    background: #1e293b; /* Darker slate */
     border: 1px solid var(--border);
-    color: var(--text-muted);
+    color: var(--text-main); /* Brighter text */
     border-radius: 8px;
     padding: 0 12px;
     outline: none;
     cursor: pointer;
+    font-weight: 500;
+}
+
+select:hover {
+    background: #334155;
+    border-color: var(--primary);
 }
 
 button {

@@ -19,13 +19,18 @@ Unlike your standard browser history, which only remembers *keywords* (e.g., "go
 
 ## 🚀 How to Install
 
-Since this is a specialized local-AI tool, you install it via Developer Mode:
+**Easy Method (For Everyone):**
+1.  Go to the [Releases Page](https://github.com/HarshalPatel1972/Mnemosyne/releases).
+2.  Download the latest `mnemosyne-v1.zip` file.
+3.  Unzip it to a folder on your computer.
+4.  Open Chrome and navigate to `chrome://extensions`.
+5.  Toggle **Developer mode** (top right corner).
+6.  Click **Load unpacked**.
+7.  Select the unzipped folder.
 
-1.  **Clone or Download** this repository to a folder on your computer.
-2.  Open Chrome and navigate to `chrome://extensions`.
-3.  Toggle **Developer mode** (top right corner).
-4.  Click **Load unpacked**.
-5.  Select the folder where you downloaded Mnemosyne.
+**Developer Method:**
+1.  Clone this repository.
+2.  Follow steps 4-7 above.
 
 ## 📖 How to Use
 

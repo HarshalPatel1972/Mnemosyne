@@ -1,4 +1,4 @@
-import { pipeline, env } from 'https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2/dist/transformers.min.js';
+import { pipeline, env } from '../lib/transformers.js';
 
 // Configure environment to skip local model checks if needed (we want local formatted models)
 // Since we are in an extension, we likely want to load models from the cache or web.

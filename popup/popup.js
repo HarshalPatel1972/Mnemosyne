@@ -8,27 +8,25 @@ const queryInput = document.getElementById('query');
 // Ensure offscreen is ready to handle the query embedding
 // We can reuse the same message type 'EMBED_TEXT'
 async function getEmbedding(text) {
-    // We need to wake up the offscreen if not open, but background handles that.
-    // However, popup functionality is separate. 
-    // We can message the background to "ensure offscreen" or just assume background is running.
-    // Better: Send message to runtime, background can forward or we can message offscreen directly if we created it?
-    // Popup cannot create offscreen if it exists. 
-    
-    // Simplest path: Send to offscreen directly. 
-    // BUT we must ensure it exists. 
-    // Let's ask background to help us or do a direct check.
-    
+    // Check if offscreen exists
     const existingContexts = await chrome.runtime.getContexts({
         contextTypes: ['OFFSCREEN_DOCUMENT'],
         documentUrls: ['offscreen/offscreen.html']
     });
 
     if (existingContexts.length === 0) {
-        await chrome.offscreen.createDocument({
-            url: 'offscreen/offscreen.html',
-            reasons: ['BLOBS'],
-            justification: 'Search embedding'
-        });
+        try {
+            await chrome.offscreen.createDocument({
+                url: 'offscreen/offscreen.html',
+                reasons: ['BLOBS'],
+                justification: 'Search embedding'
+            });
+        } catch (err) {
+            // Ignore error if it was created concurrently
+            if (!err.message.includes('Only a single offscreen')) {
+                throw err;
+            }
+        }
     }
 
     return new Promise((resolve, reject) => {
@@ -37,9 +35,13 @@ async function getEmbedding(text) {
             target: 'offscreen',
             text: text
         }, (response) => {
-             if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
-             else if (response && response.status === 'success') resolve(response.vector);
-             else reject(response ? response.error : 'Unknown error');
+             if (chrome.runtime.lastError) {
+                 reject(chrome.runtime.lastError);
+             } else if (response && response.status === 'success') {
+                 resolve(response.vector);
+             } else {
+                 reject(response ? response.error : 'Unknown error');
+             }
         });
     });
 }
